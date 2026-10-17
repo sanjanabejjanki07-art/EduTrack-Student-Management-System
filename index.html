@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Student Management System - add, search, filter, sort and manage student records. Built with HTML, CSS and vanilla JavaScript." />
+  <title>EduTrack | Student Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <button id="menuBtn" class="icon-btn menu-btn" type="button" aria-label="Open navigation" aria-controls="sidebar">☰</button>
+      <a class="brand" href="#" aria-label="EduTrack home">
+        <span class="brand__logo" aria-hidden="true">E</span>
+        <span class="brand__name">Edu<span>Track</span></span>
+      </a>
+      <div class="navbar__actions">
+        <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+          <span id="themeIcon" aria-hidden="true">🌙</span>
+        </button>
+        <button id="openAddBtn" class="btn btn--primary" type="button">+ Add Student</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+  <aside id="sidebar" class="sidebar" aria-label="Main navigation"><nav>
+    <button class="nav-item" data-nav="dashboard" type="button">📊 Dashboard</button>
+    <button class="nav-item" data-nav="students" type="button">👥 Students</button>
+    <button class="nav-item" data-nav="attendance" type="button">🗓 Attendance</button>
+    <button class="nav-item" data-nav="marks" type="button">📝 Academic Performance</button>
+    <button class="nav-item" data-nav="courses" type="button">🏫 Courses &amp; Departments</button>
+    <button class="nav-item" data-nav="fees" type="button">💳 Fee Management</button>
+    <button class="nav-item" data-nav="reports" type="button">📄 Reports</button>
+    <button class="nav-item" data-nav="notifications" type="button">🔔 Notifications</button>
+    <button class="nav-item" data-nav="settings" type="button">⚙ Settings</button>
+  </nav></aside>
+  <main id="main" class="container">
+  <div data-view="dashboard">
+    <section class="page-head">
+      <div>
+        <h1>Student Dashboard</h1>
+        <p class="muted">Manage enrolments, track performance and keep records organised.</p>
+      </div>
+      <div class="page-head__tools">
+        <button id="exportBtn" class="btn btn--ghost" type="button">⬇ Export CSV</button>
+        <button id="resetBtn" class="btn btn--ghost" type="button">↺ Reset Demo Data</button>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats" aria-label="Summary statistics">
+      <article class="stat-card">
+        <span class="stat-card__icon stat-card__icon--blue" aria-hidden="true">👥</span>
+        <div><p class="stat-card__label">Total Students</p><p class="stat-card__value" id="statTotal">0</p></div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-card__icon stat-card__icon--purple" aria-hidden="true">🏫</span>
+        <div><p class="stat-card__label">Courses</p><p class="stat-card__value" id="statCourses">0</p></div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-card__icon stat-card__icon--green" aria-hidden="true">✅</span>
+        <div><p class="stat-card__label">Active</p><p class="stat-card__value" id="statActive">0</p></div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-card__icon stat-card__icon--amber" aria-hidden="true">🎓</span>
+        <div><p class="stat-card__label">Graduated</p><p class="stat-card__value" id="statGraduated">0</p></div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-card__icon stat-card__icon--purple" aria-hidden="true">📈</span>
+        <div><p class="stat-card__label">Average GPA</p><p class="stat-card__value" id="statGpa">0.00</p></div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-card__icon stat-card__icon--blue" aria-hidden="true">🗓</span>
+        <div><p class="stat-card__label">Avg Attendance</p><p class="stat-card__value" id="statAtt">–</p></div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-card__icon stat-card__icon--amber" aria-hidden="true">⚠</span>
+        <div><p class="stat-card__label">Low Attendance</p><p class="stat-card__value" id="statLow">0</p></div>
+      </article>
+    </section>
+
+    <!-- Charts -->
+    <section class="charts" aria-label="Insights">
+      <article class="card">
+        <h2 class="card__title">Students by Course</h2>
+        <div id="courseChart" class="bars"></div>
+      </article>
+      <article class="card">
+        <h2 class="card__title">Status Overview</h2>
+        <div class="donut-wrap">
+          <div id="donut" class="donut" role="img" aria-label="Status distribution chart"><span id="donutCenter">0</span></div>
+          <ul id="donutLegend" class="legend"></ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="card" aria-label="Quick actions">
+      <h2 class="card__title">Quick actions</h2>
+      <div class="actions-row">
+        <button class="btn btn--primary" type="button" data-quick="add">+ Add Student</button>
+        <button class="btn btn--ghost" type="button" data-nav-go="attendance">Mark Attendance</button>
+        <button class="btn btn--ghost" type="button" data-nav-go="marks">Add Marks</button>
+        <button class="btn btn--ghost" type="button" data-quick="import">Import Students</button>
+      </div>
+    </section>
+  </div>
+
+  <div data-view="students" hidden>
+    <section class="page-head"><div><h1>Students</h1><p class="muted">Click a name or ID to open the full profile.</p></div>
+      <div class="page-head__tools">
+        <button class="btn btn--ghost" type="button" data-quick="import">⬆ Import CSV</button>
+        <button class="btn btn--ghost" type="button" id="tplBtn">Sample template</button>
+      </div></section>
+    <!-- Toolbar -->
+    <section class="card toolbar" aria-label="Search and filters">
+      <div class="field field--search">
+        <label for="searchInput" class="sr-only">Search students</label>
+        <input id="searchInput" type="search" placeholder="Search by name, email or ID..." autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="courseFilter" class="sr-only">Filter by course</label>
+        <select id="courseFilter"><option value="all">All courses</option></select>
+      </div>
+      <div class="field">
+        <label for="statusFilter" class="sr-only">Filter by status</label>
+        <select id="statusFilter">
+          <option value="all">All statuses</option>
+          <option>Active</option>
+          <option>Inactive</option>
+          <option>Graduated</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sortSelect" class="sr-only">Sort students</label>
+        <select id="sortSelect">
+          <option value="name-asc">Name (A–Z)</option>
+          <option value="name-desc">Name (Z–A)</option>
+          <option value="gpa-desc">GPA (high → low)</option>
+          <option value="gpa-asc">GPA (low → high)</option>
+          <option value="newest">Newest first</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Table -->
+    <section class="card table-card" aria-label="Student records">
+      <div class="table-wrap">
+        <table class="table" id="studentTable">
+          <thead>
+            <tr>
+              <th scope="col">Student</th>
+              <th scope="col">ID</th>
+              <th scope="col">Course</th>
+              <th scope="col">Year</th>
+              <th scope="col">GPA</th>
+              <th scope="col">Status</th>
+              <th scope="col" class="th-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentBody"></tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty" hidden>
+        <p class="empty__icon" aria-hidden="true">🔍</p>
+        <h3>No students found</h3>
+        <p class="muted">Try changing your search or filters, or add a new student.</p>
+      </div>
+
+      <div class="pagination">
+        <p id="resultInfo" class="muted" aria-live="polite"></p>
+        <div class="pagination__controls">
+          <button id="prevBtn" class="btn btn--ghost btn--sm" type="button">← Prev</button>
+          <span id="pageInfo" class="pagination__page">1 / 1</span>
+          <button id="nextBtn" class="btn btn--ghost btn--sm" type="button">Next →</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div data-view="attendance" hidden>
+    <section class="page-head"><div><h1>Attendance</h1>
+      <p class="muted">Attendance % = Present ÷ classes recorded × 100. Absent and On Leave count as classes held but not attended.</p></div></section>
+    <section class="card form-row">
+      <div class="form-group"><label for="attCourse">Course</label><select id="attCourse"></select></div>
+      <div class="form-group"><label for="attDate">Date</label><input type="date" id="attDate" /></div>
+      <div class="form-group"><label for="attThr">Warning threshold (%)</label><input type="number" id="attThr" min="0" max="100" /></div>
+      <button id="attSave" class="btn btn--primary" type="button">Save attendance</button>
+    </section>
+    <section class="card"><div class="table-wrap"><table class="table"><thead><tr><th scope="col">Student</th><th scope="col">ID</th><th scope="col">Status</th></tr></thead><tbody id="attBody"></tbody></table></div>
+      <p id="attEmpty" class="muted" hidden>No students in this course.</p></section>
+    <section class="card"><div class="between"><h2 class="card__title">Attendance summary</h2><button id="attExport" class="btn btn--ghost btn--sm" type="button">⬇ Export CSV</button></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th scope="col">Student</th><th scope="col">Attended</th><th scope="col">Recorded</th><th scope="col">%</th><th scope="col">Flag</th></tr></thead><tbody id="attSum"></tbody></table></div></section>
+  </div>
+
+  <div data-view="marks" hidden>
+    <section class="page-head"><div><h1>Academic Performance</h1>
+      <p class="muted">Total = Internal (max 20) + Assignment (max 10) + Exam (max 70) = out of 100. Percentage = Total ÷ 100 × 100. Grade: A ≥ 90, B ≥ 75, C ≥ 60, D ≥ 40, else F. Below 40% is flagged for academic support.</p></div></section>
+    <form id="mkForm" class="card form-row" novalidate>
+      <div class="form-group"><label for="mkStudent">Student</label><select id="mkStudent" required></select></div>
+      <div class="form-group"><label for="mkSubject">Subject</label><input id="mkSubject" maxlength="40" required /></div>
+      <div class="form-group"><label for="mkSem">Semester (1–8)</label><input id="mkSem" type="number" min="1" max="8" required /></div>
+      <div class="form-group"><label for="mkInt">Internal /20</label><input id="mkInt" type="number" step="0.5" required /></div>
+      <div class="form-group"><label for="mkAsg">Assignment /10</label><input id="mkAsg" type="number" step="0.5" required /></div>
+      <div class="form-group"><label for="mkExam">Exam /70</label><input id="mkExam" type="number" step="0.5" required /></div>
+      <button class="btn btn--primary" type="submit" id="mkSubmit">Save marks</button>
+      <button class="btn btn--ghost" type="button" id="mkCancel" hidden>Cancel edit</button>
+    </form>
+    <p id="mkError" class="error" role="alert"></p>
+    <section class="card"><div class="between"><h2 class="card__title">Results</h2><button id="mkExport" class="btn btn--ghost btn--sm" type="button">⬇ Export CSV</button></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th scope="col">Student</th><th scope="col">Subject</th><th scope="col">Sem</th><th scope="col">Total</th><th scope="col">%</th><th scope="col">Grade</th><th scope="col">Note</th><th scope="col">Actions</th></tr></thead><tbody id="mkBody"></tbody></table></div>
+      <p id="mkEmpty" class="muted" hidden>No marks recorded yet.</p></section>
+  </div>
+
+  <div data-view="courses" hidden>
+    <section class="page-head"><div><h1>Courses &amp; Departments</h1><p class="muted">Create and manage courses and departments.</p></div></section>
+    <section class="card"><h2 class="card__title">Add Course</h2><form id="courseForm" class="form-row"><div class="form-group"><label for="courseName">Course name</label><input id="courseName" required maxlength="80" placeholder="e.g. Computer Science"></div><div class="form-group"><label for="courseCode">Course code</label><input id="courseCode" required maxlength="20" placeholder="e.g. CSE"></div><div class="form-group"><label for="courseDept">Department</label><input id="courseDept" placeholder="e.g. Computer Science" required></div><div class="form-group"><label for="courseDuration">Duration (years)</label><input id="courseDuration" type="number" min="1" max="8" value="4" required></div><button class="btn btn--primary">Add Course</button></form><div class="table-wrap"><table class="table"><thead><tr><th>Course</th><th>Code</th><th>Department</th><th>Duration</th><th>Actions</th></tr></thead><tbody id="courseTableBody"></tbody></table></div></section>
+    <section class="card"><h2 class="card__title">Add Department</h2><form id="departmentForm" class="form-row"><div class="form-group"><label for="departmentName">Department name</label><input id="departmentName" required maxlength="80"></div><div class="form-group"><label for="departmentHead">Department head (optional)</label><input id="departmentHead" maxlength="80"></div><button class="btn btn--primary">Add Department</button></form><div class="table-wrap"><table class="table"><thead><tr><th>Department</th><th>Department Head</th><th>Actions</th></tr></thead><tbody id="departmentTableBody"></tbody></table></div></section>
+  </div>
+  <div data-view="fees" hidden>
+    <section class="page-head"><div><h1>Fee Management</h1><p class="muted">Record fee amounts, payments and outstanding balances.</p></div><button id="exportFees" class="btn btn--ghost" type="button">Export CSV</button></section>
+    <section class="stats"><article class="stat-card"><div><p class="stat-card__label">Total Fees</p><p class="stat-card__value" id="totalFees">₹0</p></div></article><article class="stat-card"><div><p class="stat-card__label">Paid</p><p class="stat-card__value" id="paidFees">₹0</p></div></article><article class="stat-card"><div><p class="stat-card__label">Pending</p><p class="stat-card__value" id="pendingFees">₹0</p></div></article></section>
+    <section class="card"><h2 class="card__title">Add Fee Record</h2><form id="feeForm" class="form-row"><div class="form-group"><label for="feeStudent">Student</label><select id="feeStudent" required></select></div><div class="form-group"><label for="feeType">Fee type</label><select id="feeType"><option>Tuition</option><option>Exam</option><option>Library</option><option>Transport</option><option>Hostel</option><option>Other</option></select></div><div class="form-group"><label for="feeAmount">Total amount (₹)</label><input id="feeAmount" type="number" min="1" step="0.01" required></div><div class="form-group"><label for="feePaid">Paid amount (₹)</label><input id="feePaid" type="number" min="0" step="0.01" value="0" required></div><div class="form-group"><label for="feeDate">Payment date</label><input id="feeDate" type="date" required></div><div class="form-group"><label for="feeMethod">Payment method</label><select id="feeMethod"><option>Cash</option><option>UPI</option><option>Card</option><option>Bank Transfer</option><option>Not specified</option></select></div><button class="btn btn--primary">Save Fee Record</button></form></section>
+    <section class="card"><div class="table-wrap"><table class="table"><thead><tr><th>Student</th><th>Type</th><th>Total</th><th>Paid</th><th>Pending</th><th>Date</th><th>Actions</th></tr></thead><tbody id="feeTableBody"></tbody></table></div></section>
+  </div>
+  <div data-view="reports" hidden><section class="page-head"><div><h1>Reports</h1><p class="muted">Download records for offline analysis.</p></div></section><section class="card"><h2 class="card__title">Export data</h2><p class="muted">Export current student, attendance, academic and fee records as CSV files.</p><div class="actions-row"><button class="btn btn--primary" id="reportExportStudents" type="button">Export Students</button><button class="btn btn--ghost" id="reportExportAttendance" type="button">Export Attendance</button><button class="btn btn--ghost" id="reportExportMarks" type="button">Export Marks</button><button class="btn btn--ghost" id="reportExportFees" type="button">Export Fees</button></div></section><section class="stats"><article class="stat-card"><div><p class="stat-card__label">Students</p><p class="stat-card__value" id="reportStudents">0</p></div></article><article class="stat-card"><div><p class="stat-card__label">Courses</p><p class="stat-card__value" id="reportCourses">0</p></div></article><article class="stat-card"><div><p class="stat-card__label">Marks records</p><p class="stat-card__value" id="reportMarks">0</p></div></article><article class="stat-card"><div><p class="stat-card__label">Fee records</p><p class="stat-card__value" id="reportFeeRecords">0</p></div></article></section></div>
+  <div data-view="notifications" hidden><section class="page-head"><div><h1>Notifications</h1><p class="muted">Create reminders and announcements.</p></div></section><section class="card"><form id="notificationForm" class="form-row"><div class="form-group"><label for="notificationTitle">Title</label><input id="notificationTitle" required maxlength="100"></div><div class="form-group"><label for="notificationAudience">Audience</label><select id="notificationAudience"><option>All</option><option>Students</option><option>Faculty</option></select></div><div class="form-group full"><label for="notificationMessage">Message</label><textarea id="notificationMessage" required rows="3" maxlength="1000"></textarea></div><button class="btn btn--primary">Publish notification</button></form></section><section class="card"><div id="notificationList"></div></section></div>
+  <div data-view="settings" hidden><section class="page-head"><div><h1>Settings</h1><p class="muted">Configure college details and attendance warnings.</p></div></section><section class="card"><form id="settingsForm" class="form-row"><div class="form-group"><label for="collegeName">College name</label><input id="collegeName" maxlength="120"></div><div class="form-group"><label for="collegeEmail">College email</label><input id="collegeEmail" type="email"></div><div class="form-group"><label for="collegePhone">College phone</label><input id="collegePhone" type="tel"></div><div class="form-group"><label for="attendanceThreshold">Low attendance threshold (%)</label><input id="attendanceThreshold" type="number" min="0" max="100" value="75"></div><button class="btn btn--primary" type="submit">Save Settings</button><button class="btn btn--ghost" id="settingsExport" type="button">Export Backup</button><button class="btn btn--danger" id="clearData" type="button">Clear All App Data</button></form></section></div>
+  </main>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>EduTrack &middot; Built with HTML, CSS &amp; vanilla JavaScript &middot; Data is stored in your browser (localStorage).</p>
+    </div>
+  </footer>
+
+  <!-- Add / Edit dialog -->
+  <dialog id="studentDialog" class="dialog" aria-labelledby="dialogTitle">
+    <form id="studentForm" novalidate>
+      <div class="dialog__head">
+        <h2 id="dialogTitle">Add Student</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close dialog">✕</button>
+      </div>
+
+      <div class="dialog__body grid-2">
+        <div class="form-group full">
+          <label for="fName">Full name</label>
+          <input id="fName" name="name" type="text" placeholder="e.g. Ananya Reddy" required maxlength="60" />
+          <small class="error" data-error-for="name"></small>
+        </div>
+        <div class="form-group">
+          <label for="fEmail">Email</label>
+          <input id="fEmail" name="email" type="email" placeholder="name@example.com" required />
+          <small class="error" data-error-for="email"></small>
+        </div>
+        <div class="form-group">
+          <label for="fPhone">Phone</label>
+          <input id="fPhone" name="phone" type="tel" placeholder="10-digit mobile number" required inputmode="numeric" />
+          <small class="error" data-error-for="phone"></small>
+        </div>
+        <div class="form-group">
+          <label for="fCourse">Course</label>
+          <select id="fCourse" name="course" required>
+            <option value="">Select course</option>
+            <option>Computer Science</option>
+            <option>Electronics</option>
+            <option>Mechanical</option>
+            <option>Civil</option>
+            <option>Business Administration</option>
+          </select>
+          <small class="error" data-error-for="course"></small>
+        </div>
+        <div class="form-group">
+          <label for="fYear">Year</label>
+          <select id="fYear" name="year" required>
+            <option value="">Select year</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
+          </select>
+          <small class="error" data-error-for="year"></small>
+        </div>
+        <div class="form-group">
+          <label for="fGpa">GPA (0 – 10)</label>
+          <input id="fGpa" name="gpa" type="number" step="0.01" min="0" max="10" placeholder="e.g. 8.5" required />
+          <small class="error" data-error-for="gpa"></small>
+        </div>
+        <div class="form-group">
+          <label for="fStatus">Status</label>
+          <select id="fStatus" name="status" required>
+            <option>Active</option>
+            <option>Inactive</option>
+            <option>Graduated</option>
+          </select>
+          <small class="error" data-error-for="status"></small>
+        </div>
+      </div>
+
+      <div class="dialog__foot">
+        <button type="button" class="btn btn--ghost" data-close>Cancel</button>
+        <button type="submit" class="btn btn--primary" id="saveBtn">Save Student</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Delete confirm dialog -->
+  <dialog id="confirmDialog" class="dialog dialog--sm" aria-labelledby="confirmTitle">
+    <div class="dialog__head"><h2 id="confirmTitle">Delete student?</h2></div>
+    <div class="dialog__body">
+      <p id="confirmText" class="muted"></p>
+    </div>
+    <div class="dialog__foot">
+      <button type="button" class="btn btn--ghost" id="cancelDelete">Cancel</button>
+      <button type="button" class="btn btn--danger" id="confirmDelete">Delete</button>
+    </div>
+  </dialog>
+
+  <dialog id="profileDialog" class="dialog" aria-labelledby="pfTitle">
+    <div class="dialog__head"><h2 id="pfTitle">Student profile</h2><button type="button" class="icon-btn" data-close aria-label="Close dialog">✕</button></div>
+    <div class="dialog__body"><div class="tabs" role="tablist">
+      <button type="button" class="tab" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+      <button type="button" class="tab" role="tab" data-tab="attendance" aria-selected="false">Attendance</button>
+      <button type="button" class="tab" role="tab" data-tab="marks" aria-selected="false">Performance</button></div>
+      <div id="pfBody"></div></div>
+  </dialog>
+
+  <dialog id="importDialog" class="dialog" aria-labelledby="imTitle">
+    <div class="dialog__head"><h2 id="imTitle">Import students (CSV)</h2><button type="button" class="icon-btn" data-close aria-label="Close dialog">✕</button></div>
+    <div class="dialog__body">
+      <p class="muted">Required columns: name, email, phone, course, year, gpa, status.</p>
+      <label for="imFile" class="sr-only">CSV file</label><input type="file" id="imFile" accept=".csv,text/csv" />
+      <div id="imPreview"></div>
+    </div>
+    <div class="dialog__foot"><button type="button" class="btn btn--ghost" data-close id="imCancel">Cancel</button><button type="button" class="btn btn--primary" id="imConfirm" disabled>Confirm import</button></div>
+  </dialog>
+
+  <div id="toastRegion" class="toast-region" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/modules.js"></script>
+</body>
+</html>
