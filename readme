@@ -1,67 +1,48 @@
 # 🎓 EduTrack — Student Management System
 
-<p align="center">
-  ✨ <b>Smart • Simple • Efficient</b> ✨
-  <br>
-  A web-based application designed to simplify student record and academic management.
-</p>
+✨ **Smart • Simple • Efficient** ✨
 
-<p align="center">
-  🌐 <a href="https://sanjanabejjanki07-art.github.io/EduTrack-Student-Management-System/"><b>🚀 View Live Project</b></a>
-</p>
+A web-based application designed to simplify student record and academic management.
+
+🌐 **Live Demo:** https://sanjanabejjanki07-art.github.io/EduTrack-Student-Management-System/
 
 ---
 
 ## 🌟 Features
 
-📊 **Dashboard** — View student statistics and summaries.
-
-👩‍🎓 **Student Management** — Add, edit, delete, search, and manage student records.
-
-📅 **Attendance Management** — Track attendance and view summaries.
-
-📚 **Academic Records** — Manage student marks and grades.
-
-🏫 **Courses & Departments** — Organize academic information.
-
-💰 **Fee Management** — Track student fee details.
-
-🔔 **Notifications** — View important updates.
-
-📈 **Reports** — Generate reports and export data.
-
-⚙️ **Settings** — Customize application preferences.
-
-🎨 **Interactive UI** — Enjoy a user-friendly interface and theme options.
+- 📊 **Dashboard** — View student statistics and summaries.
+- 👩‍🎓 **Student Management** — Add, edit, delete, search, and manage student records.
+- 📅 **Attendance Management** — Track attendance and view summaries.
+- 📚 **Academic Records** — Manage student marks and grades.
+- 🏫 **Courses & Departments** — Organize academic information.
+- 💰 **Fee Management** — Track student fee details.
+- 🔔 **Notifications** — View important updates.
+- 📈 **Reports** — Generate reports and export data.
+- ⚙️ **Settings** — Customize application preferences.
+- 🎨 **Interactive UI** — Enjoy a user-friendly interface.
 
 ---
 
 ## 🛠️ Technologies Used
 
-* 🌐 HTML5
-* 🎨 CSS3
-* ⚡ JavaScript
-* 💾 Browser Local Storage
-* 📄 CSV Import & Export
-* 🚀 GitHub Pages
+- 🌐 HTML5
+- 🎨 CSS3
+- ⚡ JavaScript
+- 💾 Local Storage
+- 📄 CSV Import & Export
+- 🚀 GitHub Pages
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repository
+**1. Clone the repository**
 
-```bash
-git clone https://github.com/sanjanabejjanki07-art/EduTrack-Student-Management-System.git
-```
+    git clone https://github.com/sanjanabejjanki07-art/EduTrack-Student-Management-System.git
 
-### 2. Open the Project
+**2. Open the project folder** in your code editor.
 
-Open the downloaded project folder in your code editor.
-
-### 3. Run the Application
-
-Open `index.html` in your browser.
+**3. Open `index.html`** in your browser.
 
 🎉 You're ready to explore EduTrack!
 
@@ -77,21 +58,21 @@ EduTrack may use browser Local Storage to save information, depending on the imp
 
 ## 👩‍💻 Author
 
-### ✨ Sanjana Bejjanki
+**Sanjana Bejjanki**
 
-💻 **GitHub:** [sanjanabejjanki07-art](https://github.com/sanjanabejjanki07-art)
+🔗 **GitHub:** https://github.com/sanjanabejjanki07-art
 
-🌐 **Live Project:** [EduTrack Student Management System](https://sanjanabejjanki07-art.github.io/EduTrack-Student-Management-System/)
+🌐 **Live Project:** https://sanjanabejjanki07-art.github.io/EduTrack-Student-Management-System/
 
 ---
 
 ## 🔮 Future Enhancements
 
-* 🔐 Secure user authentication
-* 🗄️ Database integration
-* 📧 Email notifications
-* 📄 PDF report generation
-* 📊 Advanced analytics
+- 🔐 User authentication
+- 🗄️ Database integration
+- 📧 Email notifications
+- 📄 PDF report generation
+- 📊 Advanced analytics
 
 ---
 
