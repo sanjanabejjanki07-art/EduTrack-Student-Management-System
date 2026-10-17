@@ -1,0 +1,102 @@
+# 🎓 EduTrack — Student Management System
+
+<p align="center">
+  ✨ <b>Smart • Simple • Efficient</b> ✨
+  <br>
+  A web-based application designed to simplify student record and academic management.
+</p>
+
+<p align="center">
+  🌐 <a href="https://sanjanabejjanki07-art.github.io/EduTrack-Student-Management-System/"><b>🚀 View Live Project</b></a>
+</p>
+
+---
+
+## 🌟 Features
+
+📊 **Dashboard** — View student statistics and summaries.
+
+👩‍🎓 **Student Management** — Add, edit, delete, search, and manage student records.
+
+📅 **Attendance Management** — Track attendance and view summaries.
+
+📚 **Academic Records** — Manage student marks and grades.
+
+🏫 **Courses & Departments** — Organize academic information.
+
+💰 **Fee Management** — Track student fee details.
+
+🔔 **Notifications** — View important updates.
+
+📈 **Reports** — Generate reports and export data.
+
+⚙️ **Settings** — Customize application preferences.
+
+🎨 **Interactive UI** — Enjoy a user-friendly interface and theme options.
+
+---
+
+## 🛠️ Technologies Used
+
+* 🌐 HTML5
+* 🎨 CSS3
+* ⚡ JavaScript
+* 💾 Browser Local Storage
+* 📄 CSV Import & Export
+* 🚀 GitHub Pages
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/sanjanabejjanki07-art/EduTrack-Student-Management-System.git
+```
+
+### 2. Open the Project
+
+Open the downloaded project folder in your code editor.
+
+### 3. Run the Application
+
+Open `index.html` in your browser.
+
+🎉 You're ready to explore EduTrack!
+
+---
+
+## 💾 Data Storage
+
+EduTrack may use browser Local Storage to save information, depending on the implementation.
+
+⚠️ Data stored locally in a browser is not automatically shared between users or devices. Avoid entering real or sensitive student information.
+
+---
+
+## 👩‍💻 Author
+
+### ✨ Sanjana Bejjanki
+
+💻 **GitHub:** [sanjanabejjanki07-art](https://github.com/sanjanabejjanki07-art)
+
+🌐 **Live Project:** [EduTrack Student Management System](https://sanjanabejjanki07-art.github.io/EduTrack-Student-Management-System/)
+
+---
+
+## 🔮 Future Enhancements
+
+* 🔐 Secure user authentication
+* 🗄️ Database integration
+* 📧 Email notifications
+* 📄 PDF report generation
+* 📊 Advanced analytics
+
+---
+
+## ⭐ Support
+
+If you like this project, please consider giving the repository a ⭐ on GitHub!
+
+💖 *Making student management smarter and easier.*
